@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=HeadSnake
+comment1.params=positionInRow\ positionInColumn\ orientation
+comment1.target=HeadSnake(int,\ int,\ int)
+comment10.params=
+comment10.target=PartSnake\ getConexion()
+comment11.params=new_conexion\ orientation_new_conexion
+comment11.target=void\ updateConexion(PartSnake,\ int)
+comment12.params=g\ x\ y
+comment12.target=void\ paint(java.awt.Graphics,\ int,\ int)
+comment2.params=newTop
+comment2.target=void\ setTop(PartSnake)
+comment3.params=newBottom
+comment3.target=void\ setBottom(PartSnake)
+comment4.params=newLeft
+comment4.target=void\ setLeft(PartSnake)
+comment5.params=newRight
+comment5.target=void\ setRight(PartSnake)
+comment6.params=
+comment6.target=PartSnake\ getTop()
+comment7.params=
+comment7.target=PartSnake\ getBottom()
+comment8.params=
+comment8.target=PartSnake\ getLeft()
+comment9.params=
+comment9.target=PartSnake\ getRight()
+numComments=13

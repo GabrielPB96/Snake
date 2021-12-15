@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=LaminaSnake
+comment1.params=marco
+comment1.target=LaminaSnake(javax.swing.JFrame)
+comment2.params=
+comment2.target=void\ initThread()
+comment3.params=
+comment3.target=void\ run()
+comment4.params=
+comment4.target=boolean\ isPause()
+comment5.params=
+comment5.target=void\ pause()
+comment6.params=
+comment6.target=void\ resume()
+comment7.params=g
+comment7.target=void\ paintComponent(java.awt.Graphics)
+comment8.params=
+comment8.target=void\ start()
+comment9.params=
+comment9.target=boolean\ enJuego()
+numComments=10
