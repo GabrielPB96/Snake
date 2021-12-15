@@ -11,13 +11,13 @@ import java.awt.*;
 import javax.swing.*;
 
 public class FrameSnake extends JFrame{
-    private JButton start, pause, resume;
+    private JButton start, pause, resume, help;
     private LaminaSnake lamina_snake;
     
     public FrameSnake(){
         super("Snake");
         setLayout(new BorderLayout());
-        setIconImage(new ImageIcon("./img/snake.png").getImage());
+        setIconImage(new ImageIcon("./img/snakeC.png").getImage());
         setBounds(0, 0, 660, 710);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -57,12 +57,25 @@ public class FrameSnake extends JFrame{
             }
         });
         
+        help = new JButton("Help");
+        help.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                new Instruccion(FrameSnake.this);
+            }
+        });
+        
+        help.setCursor(new Cursor(12));
+        start.setCursor(new Cursor(12));
+        pause.setCursor(new Cursor(12));
+        resume.setCursor(new Cursor(12));
+        
         JPanel lamina_buttons = new JPanel();
         lamina_buttons.setBackground(new Color(128, 128, 128));
         lamina_buttons.setLayout(new FlowLayout());
         lamina_buttons.add(start);
         lamina_buttons.add(pause);
         lamina_buttons.add(resume);
+        lamina_buttons.add(help);
         add(lamina_buttons, BorderLayout.NORTH);
     }
 }

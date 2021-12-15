@@ -13,6 +13,9 @@ public class LaminaSnake extends JPanel{
     private int orientation;
     private JFrame marco;
     private Thread hilo_game;
+    private final Toolkit screen = Toolkit.getDefaultToolkit();
+    private Icon[] contador = {new ImageIcon(screen.getImage("./img/tres.png")), new ImageIcon(screen.getImage("./img/dos.png")), 
+                                new ImageIcon(screen.getImage("./img/uno.png"))};
     
     public LaminaSnake(JFrame marco){
         setLayout(null);
@@ -118,7 +121,28 @@ public class LaminaSnake extends JPanel{
         initThread();
         setFocusable(true);
         requestFocusInWindow();
-        hilo_game.start();
+        load();
+    }
+    
+    private void load() {
+        Thread ani = new Thread(new Runnable(){
+            public void run(){
+                JLabel c = new JLabel();
+                c.setBounds(260, 240, 150, 150);
+                add(c);
+                try{
+                    for(Icon ico : contador) {
+                        c.setIcon(ico);
+                        updateUI();
+                        Thread.sleep(700);
+                    }
+                    remove(c);
+                    updateUI();
+                }catch(Exception e){}
+                hilo_game.start();
+            }
+        });
+        ani.start();
     }
     
     private class Manager implements KeyListener{
@@ -132,6 +156,10 @@ public class LaminaSnake extends JPanel{
                     orientation = Orientation.TOP;
                 }else if(e.getKeyCode() == KeyEvent.VK_DOWN && snake.getHead().getBottom() == null){
                     orientation = Orientation.BOTTOM;
+                }else if(e.getKeyCode() == KeyEvent.VK_A) {
+                    pause();
+                }else if(e.getKeyCode() == KeyEvent.VK_D) {
+                    resume();
                 }
             }
         }
