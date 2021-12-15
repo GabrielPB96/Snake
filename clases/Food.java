@@ -1,4 +1,5 @@
 package clases;
+import utils.Element;
 
 public abstract class Food extends Element{
     public Food(){

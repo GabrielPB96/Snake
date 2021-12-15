@@ -1,4 +1,5 @@
-package clases;
+package utils;
+
 import java.awt.Color;
 
 public class ShapeSquare extends Wall{

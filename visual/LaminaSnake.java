@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.TimerTask;
+import utils.*;
 
 public class LaminaSnake extends JPanel{
     private Snake snake;

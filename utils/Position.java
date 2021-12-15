@@ -1,4 +1,5 @@
-package clases;
+package utils;
+
 public class Position{
     private int row, column;
     

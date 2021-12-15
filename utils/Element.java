@@ -1,4 +1,5 @@
-package clases;
+package utils;
+
 import java.awt.Graphics;
 
 
@@ -50,4 +51,6 @@ public class Element{
     }
     
     public void paint(Graphics g){}
+    
+    public void paint(Graphics g, int x, int y){}
 }

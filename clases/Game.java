@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import java.util.Random;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-
+import utils.*;
 
 public class Game{
     private Snake snake;

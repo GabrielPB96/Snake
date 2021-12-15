@@ -7,6 +7,8 @@ import java.awt.Color;
 import javax.swing.*;
 import java.awt.geom.*;
 import java.awt.Graphics2D;
+import utils.Orientation;
+import utils.Element;
 
 public class Snake{
     private final int LIMIT_POSITION_X = 29, LIMIT_POSITION_Y = 29;
@@ -237,72 +239,15 @@ public class Snake{
             g.fillOval(x, y, 21, 21);
             if(p instanceof HeadSnake){ 
                 paintTongue((Graphics2D)(g), x, y);
-                paintHead(g, x, y);
+                p.paint(g, x, y);
             }else{
-                g.setColor(Color.BLACK);
-                g.drawOval(x, y, 21, 21);
-                if(p != body.peekLast()){
-                    g.setColor(new Color(192, 192, 192));
-                    g.drawOval(x+2, y+2, 18, 18);
+                PartSnake p2 = (PartSnake)p;
+                if(p2 != body.peekLast()){
+                    p2.paint(g, x, y, false);
                 }else{
-                    g.setColor(new Color(210, 163, 0));
-                    g.fillOval(x+6, y+6, 10, 10);
-                }       
+                    p2.paint(g, x, y, true);
+                }   
             }
         }
-    }
-    
-    private void paintHead(Graphics g, int x, int y){
-        Graphics2D g2 = (Graphics2D)g;
-        if(head.getOrientation() == 1){ 
-            g.setColor(new Color(163, 73, 164)); 
-            g.fillOval(x-3, y+4, 15, 15);
-            g.fillOval(x+8, y+4, 15, 15);
-                
-            g.setColor(Color.WHITE);
-            g.fillOval(x, y+6, 10, 10);
-            g.fillOval(x+11, y+6, 10, 10);
-                
-            g.setColor(Color.BLACK);
-            g.fillOval(x+3,  y+5, 6, 6);
-            g.fillOval(x+10, y+5, 6, 6);
-        }else if(head.getOrientation() == 2){
-            g.setColor(new Color(163, 73, 164)); 
-            g.fillOval(x-3, y+2, 15, 15);
-            g.fillOval(x+8, y+2, 15, 15);
-                
-            g.setColor(Color.WHITE);
-            g.fillOval(x, y+4, 10, 10);
-            g.fillOval(x+11, y+4, 10, 10);
-                
-            g.setColor(Color.BLACK);
-            g.fillOval(x+3,  y+7, 6, 6);
-            g.fillOval(x+10, y+7, 6, 6);
-        }else if(head.getOrientation() == 3){
-            g.setColor(new Color(163, 73, 164)); 
-            g.fillOval(x+4, y-4, 15, 15);
-            g.fillOval(x+4, y+10, 15, 15);
-                
-            g.setColor(Color.WHITE);
-            g.fillOval(x+8, y, 10, 10);
-            g.fillOval(x+8, y+10, 10, 10);
-                
-            g.setColor(Color.BLACK);
-            g.fillOval(x+8,  y+3, 6, 6);
-            g.fillOval(x+8,  y+10, 6, 6);
-        }else if(head.getOrientation() == 4){
-            g.setColor(new Color(163, 73, 164)); 
-            g.fillOval(x, y-4, 15, 15);
-            g.fillOval(x, y+10, 15, 15);
-                
-            g.setColor(Color.WHITE);
-            g.fillOval(x+3, y, 10, 10);
-            g.fillOval(x+3, y+10, 10, 10);
-                
-            g.setColor(Color.BLACK);
-            g.fillOval(x+8,  y+3,  6, 6);
-            g.fillOval(x+8,  y+10, 6, 6);
-        }
-        g.setColor(Color.GREEN);
     }
 }

@@ -1,4 +1,5 @@
-package clases;
+package utils;
+
 import java.awt.Graphics;
 import java.awt.Color;
 

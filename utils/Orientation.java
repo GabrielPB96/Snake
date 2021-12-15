@@ -1,4 +1,4 @@
-package clases;
+package utils;
 
 
 public interface Orientation{
