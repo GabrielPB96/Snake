@@ -13,12 +13,16 @@ public class LaminaSnake extends JPanel{
     private int orientation;
     private JFrame marco;
     private Thread hilo_game;
-    private final Toolkit screen = Toolkit.getDefaultToolkit();
-    private Icon[] contador = {new ImageIcon(screen.getImage("./img/tres.png")), new ImageIcon(screen.getImage("./img/dos.png")), 
-                                new ImageIcon(screen.getImage("./img/uno.png"))};
+    
+    private boolean init;
+    private int recuento;
+    private int delay;
     
     public LaminaSnake(JFrame marco){
         setLayout(null);
+        delay = 90;
+        recuento = 3;
+        init = false;
         setBackground(new Color(128, 128, 128));
         addKeyListener(new Manager());
         setFocusable(true);
@@ -33,6 +37,7 @@ public class LaminaSnake extends JPanel{
         hilo_game = new Thread(new Runnable(){
             public void run(){
                 while(game.verifyConditions()){
+                    game.updateBoard();
                     if(!game.isPause()){
                         try{
                             if(orientation == Orientation.TOP){
@@ -46,7 +51,7 @@ public class LaminaSnake extends JPanel{
                             }
                             repaint();
                             game.interactuar();
-                            Thread.sleep(100);
+                            Thread.sleep(delay);
                         }catch(Exception e){}
                     }
                 }
@@ -54,8 +59,12 @@ public class LaminaSnake extends JPanel{
                 if(game.win()){
                     game.end();
                     game.nextLevel();
+                    delay -= 10;
                     if(game.getLevel() < 3) JOptionPane.showMessageDialog(marco, "PASSED!!!");
-                    else JOptionPane.showMessageDialog(marco, "MISION COMPLETE!!!");
+                    else{
+                        delay = 90;
+                        JOptionPane.showMessageDialog(marco, "MISION COMPLETE!!!");
+                    }
                 }
                 if(snake.headShock()) game.end();
                 game.finishTimer();
@@ -80,6 +89,10 @@ public class LaminaSnake extends JPanel{
         requestFocusInWindow();
     }
     
+    public void actInit() {
+        init = true;
+    }
+    
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
@@ -87,7 +100,7 @@ public class LaminaSnake extends JPanel{
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Size: "+(snake.getBody().size()-1), 240, 15);
         g.drawString("Level: "+game.getLevel(), 330, 15);
-        g.setColor(new Color(26,132, 57));
+        g.setColor(new Color(144, 238, 144));
         g.fillRoundRect(18, 18, 604, 604, 7,7 );
         
         g.setColor(new Color(34, 177, 76));
@@ -104,7 +117,7 @@ public class LaminaSnake extends JPanel{
         g.drawLine(620, 20, 620, 620);
         g.drawRoundRect(18, 18, 604, 604, 7,7 );
         
-        snake.paint(g);
+        /*snake.paint(g);
         
         for(Element p: game.getFoods()){
             p.paint(g);
@@ -112,6 +125,13 @@ public class LaminaSnake extends JPanel{
         
         for(Wall w: game.getWalls()){
             w.paint(g);
+        }*/
+        game.paint(g);
+        
+        if (init) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 200));
+            g.drawString(""+recuento, 250, 370);
         }
     }
     
@@ -121,28 +141,25 @@ public class LaminaSnake extends JPanel{
         initThread();
         setFocusable(true);
         requestFocusInWindow();
-        load();
+        recuento();
     }
     
-    private void load() {
-        Thread ani = new Thread(new Runnable(){
+    private void recuento() {
+        Thread h = new Thread(new Runnable(){
             public void run(){
-                JLabel c = new JLabel();
-                c.setBounds(260, 240, 150, 150);
-                add(c);
                 try{
-                    for(Icon ico : contador) {
-                        c.setIcon(ico);
-                        updateUI();
+                    while (recuento > 0) {
+                        repaint();
                         Thread.sleep(700);
+                        recuento--;
                     }
-                    remove(c);
-                    updateUI();
-                }catch(Exception e){}
-                hilo_game.start();
+                    init = false;
+                    recuento = 3;
+                    hilo_game.start();
+                }catch(Exception e) {}
             }
         });
-        ani.start();
+        h.start();
     }
     
     private class Manager implements KeyListener{

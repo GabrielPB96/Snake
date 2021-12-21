@@ -2,16 +2,17 @@ package clases;
 import java.awt.Graphics;
 import java.awt.Color;
 
-//////////////
-import javax.swing.*;
-
 public class Chicken extends Food{
     public Chicken(){
         super();
+        tiempoVida = 7;
+        activarTimer();
     }
 
     public Chicken(int positionInRow, int positionInColumn){
         super(positionInRow, positionInColumn);
+        tiempoVida = 7;
+        activarTimer();
     }
     
     /*public void paint(Graphics g){

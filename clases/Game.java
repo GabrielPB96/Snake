@@ -10,6 +10,7 @@ import java.util.Random;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import utils.*;
+import java.util.Iterator;
 
 public class Game{
     private Snake snake;
@@ -26,6 +27,7 @@ public class Game{
     
     {
         op_walls = new ArrayList<Position[]>(3);
+        //Tres opciones, [[[]]]
         Position op1[] = {new Position(3, 3), new Position(3, 26), new Position(26, 3), new Position(26, 26)};
         Position op2[] = {new Position(6, 6), new Position(6, 23), new Position(23, 6), new Position(23, 23)};
         Position op3[] = {new Position(9, 9), new Position(9, 20), new Position(20, 9), new Position(20, 20)};
@@ -88,10 +90,16 @@ public class Game{
     
     public void pause(){
         pause = true;
+        for(Food f : foods) {
+            f.pauseContador();
+        }
     }
     
     public void resume(){
         pause = false;
+        for(Food f : foods) {
+            f.resumeContador();
+        }
     }
     
     public void begin(){
@@ -201,13 +209,14 @@ public class Game{
         }
     }
     
-    public void interactuar(){
+    public synchronized void interactuar(){
         PartSnake head = snake.getHead();
 
         for(Food food: foods){
             if(food.equalsPosition(head)){
+                food.kill();
                 foods.remove(food);
-                updateBoard();
+                //updateBoard();
                 if(food instanceof Venom){
                     snake.reduceBody();
                     if(!snake.isAlive())
@@ -225,7 +234,7 @@ public class Game{
                         PartSnake newPart2 = computeNexPart(snake.getBody().peekLast(), snake.getHead());
                         snake.toEat(food, newPart2);
                     }
-                    updateBoard();
+                    //updateBoard();
                     break;
                 }
             }
@@ -234,12 +243,15 @@ public class Game{
         if(!snake.isAlive()) en_juego = false;
     }
 
-    public void generateFood(){
+    public synchronized void generateFood(){
         int positionRow, positionColumn;
+        boolean volver;
         do{
             positionRow    = (int)(random.nextInt(board.length));
             positionColumn = (int)(random.nextInt(board.length));
-        }while(!board[positionRow][positionColumn].isEmpty());
+            volver = true;
+            if (board[positionRow][positionColumn] != null) volver  = board[positionRow][positionColumn].isEmpty();
+        }while(!volver);
 
         int typeFood = random.nextInt(13);
 
@@ -255,12 +267,27 @@ public class Game{
         foods.add(food);
     }
 
-    private void updateBoard(){
+    public synchronized void updateBoard(){
         board = new Element[30][30];
         for(PartSnake part: snake.getBody())
             board[part.getPositionInRow()][part.getPositionInColumn()] = part;
-        for(Element element: foods)
-            board[element.getPositionInRow()][element.getPositionInColumn()] = element;
+        Iterator<Food> ite = foods.iterator();
+        var deads = new ArrayList<Food>();
+        while(ite.hasNext()) {
+            //si aun estan vivos
+            
+            Food f = ite.next();
+            if (f.vivo()) {
+                board[f.getPositionInRow()][f.getPositionInColumn()] = f; 
+            }else{
+                deads.add(f);
+            }
+
+            //board[element.getPositionInRow()][element.getPositionInColumn()] = element;
+        }
+        for(Food d : deads) {
+            foods.remove(d);
+        }
         for(Wall wall: walls)
             for(Block block: wall.getBlocks())
                 board[block.getPositionInRow()][block.getPositionInColumn()] = block;
@@ -268,6 +295,17 @@ public class Game{
             for(int j=0; j<board[i].length; j++){
                 if(board[i][j] == null) board[i][j] = new Element();
             }
+        }
+    }
+    
+    public synchronized void paint(Graphics g) {
+        snake.paint(g);
+        for(Element p: foods){
+            p.paint(g);
+        }
+        
+        for(Wall w: walls){
+            w.paint(g);
         }
     }
 

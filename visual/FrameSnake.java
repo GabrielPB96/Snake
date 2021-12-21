@@ -36,8 +36,10 @@ public class FrameSnake extends JFrame{
         start = new JButton("Start");
         start.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(!lamina_snake.enJuego())
+                if(!lamina_snake.enJuego()) {
+                    lamina_snake.actInit();
                     lamina_snake.start();
+                }
             }
         });
         

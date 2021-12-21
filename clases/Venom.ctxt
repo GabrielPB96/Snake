@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Venom
-comment1.params=
-comment1.target=Venom()
-comment2.params=positionInRow\ positionInColumn
-comment2.target=Venom(int,\ int)
-comment3.params=g
-comment3.target=void\ paint(java.awt.Graphics)
-numComments=4

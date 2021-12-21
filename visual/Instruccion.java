@@ -1,7 +1,9 @@
 package visual;
 import javax.swing.*;
 import java.awt.*;
-
+import java.util.ArrayList;
+import clases.*;
+import utils.*;
 
 /**
  * Write a description of class Instruccion here.
@@ -12,61 +14,108 @@ import java.awt.*;
 public class Instruccion extends JDialog{
     private JLabel up, down, right, left, pause, resume, title;
     private JLabelURL urlGit;
-    private final Toolkit screen = Toolkit.getDefaultToolkit();
-    private Icon[] imagenes = {new ImageIcon(screen.getImage("./img/up.png").getScaledInstance(20, 20, Image.SCALE_SMOOTH)),
-                                new ImageIcon(screen.getImage("./img/down.png").getScaledInstance(20, 20, Image.SCALE_SMOOTH)),
-                                new ImageIcon(screen.getImage("./img/right.png").getScaledInstance(20, 20, Image.SCALE_SMOOTH)),
-                                new ImageIcon(screen.getImage("./img/left.png").getScaledInstance(20, 20, Image.SCALE_SMOOTH)),
-                                new ImageIcon(screen.getImage("./img/pause.png").getScaledInstance(20, 20, Image.SCALE_SMOOTH)),
-                                new ImageIcon(screen.getImage("./img/resume.png").getScaledInstance(20, 20, Image.SCALE_SMOOTH))};
+    private ArrayList<Food> foods;
+    private Wall muro;
     
     private Container panel;
     public Instruccion(FrameSnake f) {
         super(f, "Help", true);
-        setBounds(0, 0, 350, 220);
+        foods = new ArrayList<Food>();
+        setLayout(new BorderLayout());
+        setBounds(0, 0, 350, 250);
         setLocationRelativeTo(f);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setResizable(false);
-        panel = getContentPane();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(Color.WHITE);
-        
         init();
         setVisible(true);
     }
     
     private void init() {
-        title = new JLabel("Controles");
-        title.setFont(new Font("Arial", Font.BOLD, 20));
-        up = new JLabel(" Para ir arriba.                ", imagenes[0], SwingConstants.RIGHT);
-        down = new JLabel(" Para ir abajo.               ", imagenes[1], SwingConstants.RIGHT);
-        right = new JLabel(" Para ir a la derecha. ", imagenes[2], SwingConstants.RIGHT);
-        left = new JLabel(" Para ir a la izquierda. ", imagenes[3], SwingConstants.RIGHT);
-        pause = new JLabel(" Para pausar el juego. ", imagenes[4], SwingConstants.RIGHT);
-        resume = new JLabel(" Para reanuar el juego. ", imagenes[5], SwingConstants.RIGHT);
-        
         urlGit = new JLabelURL("Respositorio: ", "https://github.com/GabrielPB96/Snake.git");
         
-        up.setAlignmentX(Component.CENTER_ALIGNMENT);
-        down.setAlignmentX(Component.CENTER_ALIGNMENT);
-        right.setAlignmentX(Component.CENTER_ALIGNMENT);
-        left.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pause.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resume.setAlignmentX(Component.CENTER_ALIGNMENT);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        urlGit.setAlignmentX(Component.CENTER_ALIGNMENT);
+        foods.add(new Chicken(9, 2));
+        foods.add(new Mouse(11, 2));
+        foods.add(new Venom(13, 2));
+        foods.add(new Bomb(15, 2));
+        muro = new ShapeEle(new Position(18, 3), new Color(160, 68, 46));
+        muro.rotateLeft();
         
-        panel.add(title);
-        panel.add(up);
-        panel.add(down);
-        panel.add(right);
-        panel.add(left);
-        panel.add(pause);
-        panel.add(resume);
-        panel.add(urlGit);
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(new Panel());
+        
+        add(scroll, BorderLayout.CENTER);
+        add(urlGit, BorderLayout.SOUTH);
     }
     
     public static void main() {
         new Instruccion(null);
+    }
+    
+    private class Panel extends JPanel {
+        public Panel() {
+            setBackground(Color.WHITE);
+            setPreferredSize(new Dimension(300, 420));
+        }
+        
+        public void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            g.drawString("CONTROLES", 108, 20);
+            //up
+            int x1[] = {90, 95, 100};
+            int y1[] = {40, 30, 40};
+            g.fillPolygon(x1, y1, 3);
+            g.fillRect(93, 40, 5, 10);
+            g.setFont(new Font("Arial", Font.PLAIN, 15));
+            g.drawString("Para ir arriba.", 120, 50);
+            
+            //down
+            int x2[] = {90, 95, 100};
+            int y2[] = {70, 80, 70};
+            g.fillPolygon(x2, y2, 3);
+            g.fillRect(93, 60, 5, 10);
+            g.setFont(new Font("Arial", Font.PLAIN, 15));
+            g.drawString("Para ir abajo.", 120, 75);
+            
+            //right
+            int x3[] = {95, 105, 95};
+            int y3[] = {87, 92, 97};
+            g.fillPolygon(x3, y3, 3);
+            g.fillRect(85, 90, 10, 5);
+            g.setFont(new Font("Arial", Font.PLAIN, 15));
+            g.drawString("Para ir a la derecha.", 120, 100);
+            
+            //left
+            int x4[] = {94, 84, 94};
+            int y4[] = {112, 117, 122};
+            g.fillPolygon(x4, y4, 3);
+            g.fillRect(94, 115, 10, 5);
+            g.setFont(new Font("Arial", Font.PLAIN, 15));
+            g.drawString("Para ir a la izquierda.", 120, 125);
+            
+            //pause
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            g.drawString("A", 90, 150);
+            g.setFont(new Font("Arial", Font.PLAIN, 15));
+            g.drawString("Para pausar el juego.", 120, 150);
+            
+            //resume
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            g.drawString("D", 90, 177);
+            g.setFont(new Font("Arial", Font.PLAIN, 15));
+            g.drawString("Para reanuar el juego.", 120, 175);
+            
+            g.drawString("Aumenta el tamaño en uno.", 110, 217);
+            g.drawString("Aumenta el tamaño en dos.", 110, 257);
+            g.drawString("Reduce el tamaño en uno", 110, 298);
+            g.drawString("Game Over.", 110, 335);
+            g.drawString("Game Over.", 110, 385);
+            for (Food f : foods) {
+                f.paint(g);
+            }
+            
+            muro.paint(g);
+        }
     }
 }

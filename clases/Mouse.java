@@ -8,10 +8,14 @@ import javax.swing.*;
 public class Mouse extends Food{
     public Mouse(){
         super();
+        tiempoVida = 5;
+        activarTimer();
     }
 
     public Mouse(int positionInRow, int positionInColumn){
         super(positionInRow, positionInColumn);
+        tiempoVida = 5;
+        activarTimer();
     }    
     
     /*public void paint(Graphics g){

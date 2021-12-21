@@ -6,10 +6,14 @@ import javax.swing.*;
 public class Venom extends Food{
     public Venom(){
         super();
+        tiempoVida = 15;
+        activarTimer();
     }
 
     public Venom(int positionInRow, int positionInColumn){
         super(positionInRow, positionInColumn);
+         tiempoVida = 15;
+        activarTimer();
     }
     
     public void paint(Graphics g){
