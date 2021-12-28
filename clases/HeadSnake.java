@@ -57,6 +57,8 @@ public class HeadSnake extends PartSnake{
     }
     
     public void paint(Graphics g, int x, int y){
+        g.setColor(new Color(163, 73, 164)); 
+        g.fillOval(x, y, 21, 21);
         Graphics2D g2 = (Graphics2D)g;
         if(orientation == 1){ 
             g.setColor(new Color(163, 73, 164)); 

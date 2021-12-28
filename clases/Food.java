@@ -28,7 +28,6 @@ public abstract class Food extends Element{
         contador = new Timer();
         task = new TimerTask(){
             public void run(){
-                //System.out.println("RESTANDO..." + tiempoVida);
                 if(!pauseContador) {
                     if(tiempoVida > 0) {
                         tiempoVida = tiempoVida - 1;   
@@ -48,6 +47,7 @@ public abstract class Food extends Element{
     }
     
     public void kill() {
+        vivo = false;
         if (contador != null) {
             contador.cancel();
         }

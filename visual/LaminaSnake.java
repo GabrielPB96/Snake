@@ -144,7 +144,8 @@ public class LaminaSnake extends JPanel{
         recuento();
     }
     
-    private void recuento() {
+    public void recuento() {
+        init = true;
         Thread h = new Thread(new Runnable(){
             public void run(){
                 try{
@@ -155,7 +156,10 @@ public class LaminaSnake extends JPanel{
                     }
                     init = false;
                     recuento = 3;
-                    hilo_game.start();
+                    if (!isPause())
+                        hilo_game.start();
+                    else
+                        resume();
                 }catch(Exception e) {}
             }
         });

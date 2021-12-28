@@ -216,7 +216,6 @@ public class Game{
             if(food.equalsPosition(head)){
                 food.kill();
                 foods.remove(food);
-                //updateBoard();
                 if(food instanceof Venom){
                     snake.reduceBody();
                     if(!snake.isAlive())
@@ -234,7 +233,6 @@ public class Game{
                         PartSnake newPart2 = computeNexPart(snake.getBody().peekLast(), snake.getHead());
                         snake.toEat(food, newPart2);
                     }
-                    //updateBoard();
                     break;
                 }
             }
@@ -271,19 +269,14 @@ public class Game{
         board = new Element[30][30];
         for(PartSnake part: snake.getBody())
             board[part.getPositionInRow()][part.getPositionInColumn()] = part;
-        Iterator<Food> ite = foods.iterator();
         var deads = new ArrayList<Food>();
-        while(ite.hasNext()) {
-            //si aun estan vivos
-            
-            Food f = ite.next();
+        for(Element element : foods) {
+            Food f = (Food)element;
             if (f.vivo()) {
                 board[f.getPositionInRow()][f.getPositionInColumn()] = f; 
             }else{
                 deads.add(f);
             }
-
-            //board[element.getPositionInRow()][element.getPositionInColumn()] = element;
         }
         for(Food d : deads) {
             foods.remove(d);
@@ -322,85 +315,5 @@ public class Game{
     
     public boolean verifyConditions(){
         return isInGame() && snake.isAlive() && !snake.headShock() && !win();
-    }
-    
-    public void showBoard(){
-        for(int i=0; i<board.length; i++){
-            for(int j=0; j<board[i].length; j++){
-                if(!board[i][j].isEmpty())
-                    if(board[i][j] instanceof PartSnake)
-                        if(board[i][j] instanceof HeadSnake)
-                            System.out.print("2 ");
-                        else System.out.print("1 ");
-                    else
-                        if(board[i][j] instanceof Chicken)
-                            System.out.print("5 ");
-                        else
-                            if(board[i][j] instanceof Mouse)
-                                System.out.print("6 ");
-                            else
-                                System.out.print("7 ");
-                else System.out.print("0 ");
-            }
-            System.out.println();
-        }
-    }
-
-    public static void main(String... args){
-        Game game = new Game();
-
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-        game.generateFood();
-
-
-        game.updateBoard();
-        
-        System.out.println();
-
-        Scanner leer = new Scanner(System.in);
-
-        int op = 0;
-        while(op != 5){
-            game.updateBoard();
-
-            game.showBoard();
-            System.out.println();
-
-            System.out.println("1.Top");
-            System.out.println("2.Bottom");
-            System.out.println("3.Right");
-            System.out.println("4.Left");
-            System.out.println("5.Exit");
-
-            op = leer.nextInt();
-
-            if(op == 1)
-                game.getSnake().runTop();
-            else if(op == 2)
-                game.getSnake().runBottom();
-            else if(op == 3)
-                game.getSnake().runRight();
-            else if(op == 4)
-                game.getSnake().runLeft();
-            game.interactuar();
-            if(!game.getSnake().isAlive() || game.getSnake().headShock()) op = 5;
-        }
-
-        System.out.println("\nHEAD: "+game.getSnake().getHead());
-        System.out.println("Orientation: "+game.getSnake().getHead().getOrientation());
-        System.out.println("Conexion: "+game.getSnake().getHead().getConexion());
     }
 }

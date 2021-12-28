@@ -46,23 +46,32 @@ public class FrameSnake extends JFrame{
         pause = new JButton("Pause");
         pause.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(lamina_snake.enJuego())
+                if(lamina_snake.enJuego()) {
                     lamina_snake.pause();
+                    JOptionPane.showMessageDialog(FrameSnake.this, "¿Reanuar?");
+                    lamina_snake.recuento();
+                }
             }
         });
         
         resume = new JButton("Resume");
         resume.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                if(lamina_snake.isPause())
+                if(lamina_snake.isPause()) {
                     lamina_snake.resume();
+                }
             }
         });
         
         help = new JButton("Help");
         help.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
+                if (lamina_snake.enJuego()) lamina_snake.pause();
                 new Instruccion(FrameSnake.this);
+                if (lamina_snake.enJuego())  {
+                    JOptionPane.showMessageDialog(FrameSnake.this, "¿Reanuar?");
+                    lamina_snake.recuento();
+                }
             }
         });
         

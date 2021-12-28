@@ -233,10 +233,8 @@ public class Snake{
         
     public void paint(Graphics g){
         for(Element p: body){
-            g.setColor(new Color(163, 73, 164)); 
             int y = (p.getPositionInRow()+1)*20;
             int x = (p.getPositionInColumn()+1)*20;
-            g.fillOval(x, y, 21, 21);
             if(p instanceof HeadSnake){ 
                 paintTongue((Graphics2D)(g), x, y);
                 p.paint(g, x, y);

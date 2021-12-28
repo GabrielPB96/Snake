@@ -32,14 +32,15 @@ public class PartSnake extends Element implements Orientation{
     }
     
     public void paint(Graphics g, int x, int y, boolean last){
+        g.setColor(new Color(163, 73, 164)); 
+        g.fillOval(x, y, 21, 21);
         g.setColor(Color.BLACK);
         g.drawOval(x, y, 21, 21);
-        if(!last){
-            g.setColor(new Color(192, 192, 192));
-            g.drawOval(x+2, y+2, 18, 18);
-        }else{
+        g.setColor(new Color(192, 192, 192));
+        g.drawOval(x+2, y+2, 17, 17);  
+        if(last) {
             g.setColor(new Color(210, 163, 0));
             g.fillOval(x+6, y+6, 10, 10);
-        }     
+        }
     }
 }

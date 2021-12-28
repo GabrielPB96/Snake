@@ -19,12 +19,13 @@ public class ProofPaintSnake extends JFrame{
 
 class LaminaSnake extends JPanel{
     public LaminaSnake(){
-        setBackground(Color.GREEN);
+        //setBackground(Color.GREEN);
     }
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Snake snake = new Snake(2, 2);
+        snake.toEat(new Chicken(), new PartSnake());
         snake.paint(g);
     }
 }
