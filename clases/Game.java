@@ -25,6 +25,8 @@ public class Game{
     private int level;
     private Element board[][];
     
+    private FoodFactory factory;
+    
     {
         op_walls = new ArrayList<Position[]>(3);
         //Tres opciones, [[[]]]
@@ -38,6 +40,7 @@ public class Game{
 
     public Game(){
         snake      = new Snake();
+        factory    = new RandomFood();
         foods      = new ArrayList<Food>();
         walls      = new ArrayList<Wall>();
         en_juego   = false;
@@ -51,6 +54,7 @@ public class Game{
     
     public Game(Snake snake){
         this.snake = snake;
+        factory    = new RandomFood();
         foods      = new ArrayList<Food>();
         walls      = new ArrayList<Wall>();
         en_juego   = false;
@@ -251,17 +255,9 @@ public class Game{
             if (board[positionRow][positionColumn] != null) volver  = board[positionRow][positionColumn].isEmpty();
         }while(!volver);
 
-        int typeFood = random.nextInt(13);
-
-        Food food = null;
-        if(typeFood < 6)
-            food = new Chicken(positionRow, positionColumn);
-        else if(typeFood > 5 && typeFood < 10)
-            food = new Mouse(positionRow, positionColumn);
-        else if(typeFood > 10 && typeFood < 12)
-            food = new Venom(positionRow, positionColumn);
-        else
-            food = new Bomb(positionRow, positionColumn);
+        Food food = factory.createFood();
+        food.setPositionInRow(positionRow);
+        food.setPositionInColumn(positionColumn);
         foods.add(food);
     }
 
