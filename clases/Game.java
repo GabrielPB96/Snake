@@ -178,41 +178,7 @@ public class Game{
             pos--;
         }
     }
-    
-    private PartSnake computeNexPart(PartSnake lastPart, HeadSnake headSnake){
-        int positionRow, positionColumn;
-        positionRow    = lastPart.getPositionInRow();
-        positionColumn = lastPart.getPositionInColumn();
 
-        if(lastPart.getOrientation() == Orientation.TOP){
-            positionRow += 1; 
-        }else if(lastPart.getOrientation() == Orientation.BOTTOM){
-            positionRow -= 1;
-        }else if(lastPart.getOrientation() == Orientation.LEFT){
-            positionColumn += 1;
-        }else if(lastPart.getOrientation() == Orientation.RIGHT){
-            positionColumn -= 1;
-        }
-
-        if((positionRow >= 0 && positionRow < board.length) && (positionColumn >= 0 && positionColumn < board.length)){
-            return new PartSnake(positionRow, positionColumn, lastPart.getOrientation());
-        }else{
-            if(positionRow < 0 || positionRow >= board.length){
-                if(lastPart.getPositionInColumn() + 1 != headSnake.getPositionInColumn()){
-                    return new PartSnake(lastPart.getPositionInRow(), lastPart.getPositionInColumn()+1, Orientation.LEFT);
-                }else{
-                    return new PartSnake(lastPart.getPositionInRow(), lastPart.getPositionInColumn()-1, Orientation.RIGHT);
-                }
-            }else{
-                if(lastPart.getPositionInRow() + 1 != headSnake.getPositionInRow()){
-                    return new PartSnake(lastPart.getPositionInRow()+1, lastPart.getPositionInColumn(), Orientation.TOP);
-                }else{
-                    return new PartSnake(lastPart.getPositionInRow()-1, lastPart.getPositionInColumn(), Orientation.BOTTOM);
-                }
-            }
-        }
-    }
-    
     public synchronized void interactuar(){
         PartSnake head = snake.getHead();
 
@@ -220,25 +186,8 @@ public class Game{
             if(food.equalsPosition(head)){
                 food.kill();
                 foods.remove(food);
-                if(food instanceof Venom){
-                    snake.reduceBody();
-                    if(!snake.isAlive())
-                        en_juego = false;
-                    break;
-                }else if(food instanceof Bomb){
-                    snake.kill();
-                    en_juego = false;
-                    break;
-                }else{
-                    PartSnake newPart1  = computeNexPart(snake.getBody().peekLast(), snake.getHead());
-                    snake.toEat(food, newPart1);                    
-
-                    if(food instanceof Mouse){
-                        PartSnake newPart2 = computeNexPart(snake.getBody().peekLast(), snake.getHead());
-                        snake.toEat(food, newPart2);
-                    }
-                    break;
-                }
+                food.interactuar(snake);
+                //break;
             }
         }
         if(headShockWalls()) snake.kill();

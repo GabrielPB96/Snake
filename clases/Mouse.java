@@ -72,4 +72,11 @@ public class Mouse extends Food{
         //nose
         g.fillOval(x+8, y+16, 5, 5);
     }
+    
+    public void interactuar(Snake snake) {
+        PartSnake newPart1 = PartSnakeFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
+        snake.toEat(newPart1);
+        PartSnake newPart2 = PartSnakeFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
+        snake.toEat(newPart2);
+    }
 }

@@ -73,11 +73,6 @@ public class Snake{
     public HeadSnake getHead(){
         return head;
     }
-    
-    private void growingUp(PartSnake newPart){
-        body.addLast(newPart);
-        size++;
-    }
 
     //pensar en otro nombre
     public void reduceBody(){
@@ -87,8 +82,9 @@ public class Snake{
         }
     }
 
-    public void toEat(Food food, PartSnake newPart){
-        if(food != null) growingUp(newPart);
+    public void toEat(PartSnake newPart){
+        body.addLast(newPart);
+        size++;
     }
     
     public void kill(){

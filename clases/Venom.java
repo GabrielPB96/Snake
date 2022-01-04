@@ -62,4 +62,8 @@ public class Venom extends Food{
         g.fillOval(x+10, y+5, 5, 5);
         g.drawArc(x+5, y+7, 10, 10, 180, 180);
     }
+    
+    public void interactuar(Snake snake) {
+        snake.reduceBody();
+    }
 }

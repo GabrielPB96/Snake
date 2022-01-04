@@ -34,4 +34,8 @@ public class Bomb extends Food{
         g.setColor(Color.BLACK);
         g.drawOval(x, y, 20, 20);
     }
+    
+    public void interactuar(Snake snake) {
+        snake.kill();
+    }
 }

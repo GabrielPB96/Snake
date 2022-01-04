@@ -60,4 +60,8 @@ public abstract class Food extends Element{
     public void resumeContador() {
         pauseContador = false;
     }
+    
+    public abstract void interactuar(Snake snake);
 }
+
+

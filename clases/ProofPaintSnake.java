@@ -25,7 +25,7 @@ class LaminaSnake extends JPanel{
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Snake snake = new Snake(2, 2);
-        snake.toEat(new Chicken(), new PartSnake());
+        snake.toEat(new PartSnake());
         snake.paint(g);
     }
 }

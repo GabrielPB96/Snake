@@ -90,4 +90,9 @@ public class Chicken extends Food{
         int ys[] = {y+10, y+15, y+10};
         g.fillPolygon(xs, ys, 3);
     }
+    
+    public void interactuar(Snake snake) {
+        PartSnake newPart = PartSnakeFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
+        snake.toEat(newPart);
+    }
 }
