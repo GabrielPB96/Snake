@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.util.Timer;
 import java.util.TimerTask;
+import visual.LaminaSnake;
 
 public class SnakeTongue extends Rectangle2D.Double{
     private Color color;
@@ -35,13 +36,13 @@ public class SnakeTongue extends Rectangle2D.Double{
             public void run() {
                 crecer();
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(200);
                 }catch(Exception e) {}
                 menguar();
             }
         };
         timer = new Timer();
-        timer.schedule(task, 0, 1000);
+        timer.schedule(task, 5000, 300);
     }
     
     public void cancelTimer() {
@@ -79,7 +80,7 @@ public class SnakeTongue extends Rectangle2D.Double{
         }
     }
     
-    private void computeWidthHeight(){
+    public void computeWidthHeight(){
         if(orientation == Orientation.TOP || orientation == Orientation.BOTTOM){
             height = 1;
             width  = 4;
@@ -93,7 +94,7 @@ public class SnakeTongue extends Rectangle2D.Double{
         int nY = (ref.getPositionInRow()+1)*20;
         int nX = (ref.getPositionInColumn()+1)*20;
         orientation = ref.getOrientation();
-        //computeWidthHeight();
+        computeWidthHeight();
         if(orientation == Orientation.TOP){
             x = nX+8;
             y = nY;

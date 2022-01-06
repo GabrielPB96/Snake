@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.TimerTask;
 import utils.*;
+import logic.Game;
 
 public class LaminaSnake extends JPanel{
     private Snake snake;
@@ -117,15 +118,6 @@ public class LaminaSnake extends JPanel{
         g.drawLine(620, 20, 620, 620);
         g.drawRoundRect(18, 18, 604, 604, 7,7 );
         
-        /*snake.paint(g);
-        
-        for(Element p: game.getFoods()){
-            p.paint(g);
-        }
-        
-        for(Wall w: game.getWalls()){
-            w.paint(g);
-        }*/
         game.paint(g);
         
         if (init) {

@@ -2,8 +2,8 @@ package clases;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProofPaintFood extends JFrame{
-    public ProofPaintFood(){
+public class PaintFood extends JFrame{
+    public PaintFood(){
         super("Foods");
         setBounds(0, 0, 250, 250);
         setLocationRelativeTo(null);
@@ -13,7 +13,7 @@ public class ProofPaintFood extends JFrame{
     } 
     
     public static void main(String args[]){
-        new ProofPaintFood();
+        new PaintFood();
     }
 }
 

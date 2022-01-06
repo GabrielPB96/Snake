@@ -1,16 +1,12 @@
-package clases;
+package logic;
 
 
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.awt.Graphics;
-import java.util.Random;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import utils.*;
-import java.util.Iterator;
+import clases.*;
 
 public class Game{
     private Snake snake;
