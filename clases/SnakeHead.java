@@ -2,45 +2,48 @@ package clases;
 import java.awt.*;
 import utils.Orientation;
 
-public class HeadSnake extends PartSnake{
-    private PartSnake top, bottom, left, right;
+public class SnakeHead extends SnakePart{
+    private SnakePart top, bottom, left, right;
+    private SnakeTongue tongue;
 
-    public HeadSnake(int positionInRow, int positionInColumn, int orientation){
+    public SnakeHead(int positionInRow, int positionInColumn, int orientation){
         super(positionInRow, positionInColumn, orientation);
+        tongue = new SnakeTongue(0, 0, 4, 8, Color.BLUE);
+        tongue.computeFrame(this);
     }
 
-    public void setTop(PartSnake newTop){
+    public void setTop(SnakePart newTop){
         top = newTop;
     }
 
-    public void setBottom(PartSnake newBottom){
+    public void setBottom(SnakePart newBottom){
         bottom = newBottom;
     }
-    public void setLeft(PartSnake newLeft){
+    public void setLeft(SnakePart newLeft){
         left = newLeft;
     }
 
-    public void setRight(PartSnake newRight){
+    public void setRight(SnakePart newRight){
         right = newRight;
     }
 
-    public PartSnake getTop(){
+    public SnakePart getTop(){
         return top;
     }
 
-    public PartSnake getBottom(){
+    public SnakePart getBottom(){
         return bottom;
     }
 
-    public PartSnake getLeft(){
+    public SnakePart getLeft(){
         return left;
     }
 
-    public PartSnake getRight(){
+    public SnakePart getRight(){
         return right;
     }
 
-    public PartSnake getConexion(){
+    public SnakePart getConexion(){
         if(top != null) return top;
         if(bottom != null) return bottom;
         if(left != null) return left;
@@ -48,7 +51,51 @@ public class HeadSnake extends PartSnake{
         return null;
     }
     
-    public void updateConexion(PartSnake new_conexion, int orientation_new_conexion){
+    public SnakeTongue getTongue() {
+        return tongue;
+    }
+    
+    public boolean moveTop() {
+        if(top == null){
+            setPositionInRow(getPositionInRow()-1);
+            setOrientation(Orientation.TOP);
+            tongue.computeFrame(this);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean moveBottom() {
+         if(bottom == null){
+            setPositionInRow(getPositionInRow()+1);
+            setOrientation(Orientation.BOTTOM);
+            tongue.computeFrame(this);
+            return true;  
+        }
+        return false;
+    }
+    
+    public boolean moveRight() {
+        if(right == null){
+            setPositionInColumn(getPositionInColumn()+1);
+            setOrientation(Orientation.RIGHT);
+            tongue.computeFrame(this);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean moveLeft() {
+        if(left == null){
+            setPositionInColumn(getPositionInColumn()-1);
+            setOrientation(Orientation.LEFT);
+            tongue.computeFrame(this);
+            return true;
+        }
+        return false;
+    }
+    
+    public void updateConexion(SnakePart new_conexion, int orientation_new_conexion){
         top = bottom = right = left = null;
         if(orientation_new_conexion == Orientation.TOP) bottom = new_conexion;
         else if(orientation_new_conexion == Orientation.BOTTOM) top = new_conexion;
@@ -56,7 +103,12 @@ public class HeadSnake extends PartSnake{
         else right = new_conexion;
     }
     
-    public void paint(Graphics g, int x, int y){
+    public void paint(Graphics g){
+        int y = (getPositionInRow()+1)*20;
+        int x = (getPositionInColumn()+1)*20;
+        
+        tongue.paint((Graphics2D)g);
+        
         g.setColor(new Color(163, 73, 164)); 
         g.fillOval(x, y, 21, 21);
         Graphics2D g2 = (Graphics2D)g;

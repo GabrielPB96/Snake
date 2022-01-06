@@ -104,10 +104,10 @@ public class LaminaSnake extends JPanel{
         g.fillRoundRect(18, 18, 604, 604, 7,7 );
         
         g.setColor(new Color(34, 177, 76));
-        for(int i=2; i<=30; i++){
+        /*for(int i=2; i<=30; i++){
             g.drawLine(20, i*20, 620, i*20);
             g.drawLine(i*20, 20, i*20, 620);
-        }
+        }*/
         
         //bordes
         g.setColor(Color.BLACK);

@@ -2,27 +2,27 @@ package clases;
 
 
 /**
- * Write a description of class PartSnakeFactory here.
+ * Write a description of class SnakePartFactory here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
 import utils.Orientation;
-public class PartSnakeFactory {
+public class SnakePartFactory {
     public final int SIZE_BOARD = 30;
-    public static PartSnakeFactory instance;
+    public static SnakePartFactory instance;
     
     static{
-        instance = new PartSnakeFactory();
+        instance = new SnakePartFactory();
     }
     
-    public static PartSnakeFactory getInstance() {
+    public static SnakePartFactory getInstance() {
         return instance;
     }
     
-    private PartSnakeFactory(){}
+    private SnakePartFactory(){}
     
-    public PartSnake computeNexPart(PartSnake lastPart, HeadSnake headSnake){
+    public SnakePart computeNexPart(SnakePart lastPart, SnakeHead headSnake){
         int positionRow, positionColumn;
         positionRow    = lastPart.getPositionInRow();
         positionColumn = lastPart.getPositionInColumn();
@@ -38,19 +38,19 @@ public class PartSnakeFactory {
         }
 
         if((positionRow >= 0 && positionRow < SIZE_BOARD) && (positionColumn >= 0 && positionColumn < SIZE_BOARD)){
-            return new PartSnake(positionRow, positionColumn, lastPart.getOrientation());
+            return new SnakePart(positionRow, positionColumn, lastPart.getOrientation());
         }else{
             if(positionRow < 0 || positionRow >= SIZE_BOARD){
                 if(lastPart.getPositionInColumn() + 1 != headSnake.getPositionInColumn()){
-                    return new PartSnake(lastPart.getPositionInRow(), lastPart.getPositionInColumn()+1, Orientation.LEFT);
+                    return new SnakePart(lastPart.getPositionInRow(), lastPart.getPositionInColumn()+1, Orientation.LEFT);
                 }else{
-                    return new PartSnake(lastPart.getPositionInRow(), lastPart.getPositionInColumn()-1, Orientation.RIGHT);
+                    return new SnakePart(lastPart.getPositionInRow(), lastPart.getPositionInColumn()-1, Orientation.RIGHT);
                 }
             }else{
                 if(lastPart.getPositionInRow() + 1 != headSnake.getPositionInRow()){
-                    return new PartSnake(lastPart.getPositionInRow()+1, lastPart.getPositionInColumn(), Orientation.TOP);
+                    return new SnakePart(lastPart.getPositionInRow()+1, lastPart.getPositionInColumn(), Orientation.TOP);
                 }else{
-                    return new PartSnake(lastPart.getPositionInRow()-1, lastPart.getPositionInColumn(), Orientation.BOTTOM);
+                    return new SnakePart(lastPart.getPositionInRow()-1, lastPart.getPositionInColumn(), Orientation.BOTTOM);
                 }
             }
         }

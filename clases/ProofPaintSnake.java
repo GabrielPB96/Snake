@@ -10,6 +10,9 @@ public class ProofPaintSnake extends JFrame{
         add(new LaminaSnake());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        while(true){
+            repaint();
+        }
     }
     
     public static void main(String args[]){
@@ -18,14 +21,19 @@ public class ProofPaintSnake extends JFrame{
 }
 
 class LaminaSnake extends JPanel{
+    Snake snake = new Snake(2, 2);
     public LaminaSnake(){
         //setBackground(Color.GREEN);
+        snake.runLeft();
+        snake.runBottom();
+        //snake.getHead().getTongue().initTimer();
     }
     
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        Snake snake = new Snake(2, 2);
-        snake.toEat(new PartSnake());
+        
+        //snake.toEat(new SnakePart());
+        
         snake.paint(g);
     }
 }

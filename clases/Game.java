@@ -109,6 +109,7 @@ public class Game{
     public void begin(){
         en_juego = true;
         pause    = false;
+        //snake.getHead().getTongue().initTimer();
         updateBoard();
     }
     
@@ -180,7 +181,7 @@ public class Game{
     }
 
     public synchronized void interactuar(){
-        PartSnake head = snake.getHead();
+        SnakePart head = snake.getHead();
 
         for(Food food: foods){
             if(food.equalsPosition(head)){
@@ -212,7 +213,7 @@ public class Game{
 
     public synchronized void updateBoard(){
         board = new Element[30][30];
-        for(PartSnake part: snake.getBody())
+        for(SnakePart part: snake.getBody())
             board[part.getPositionInRow()][part.getPositionInColumn()] = part;
         var deads = new ArrayList<Food>();
         for(Element element : foods) {

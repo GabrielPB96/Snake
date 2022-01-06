@@ -74,9 +74,9 @@ public class Mouse extends Food{
     }
     
     public void interactuar(Snake snake) {
-        PartSnake newPart1 = PartSnakeFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
+        SnakePart newPart1 = SnakePartFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
         snake.toEat(newPart1);
-        PartSnake newPart2 = PartSnakeFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
+        SnakePart newPart2 = SnakePartFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
         snake.toEat(newPart2);
     }
 }

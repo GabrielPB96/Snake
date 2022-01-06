@@ -25,7 +25,7 @@ public abstract class Food extends Element{
     }
     
     protected void activarTimer() {
-        contador = new Timer();
+        //contador = new Timer();
         task = new TimerTask(){
             public void run(){
                 if(!pauseContador) {

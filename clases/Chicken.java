@@ -92,7 +92,7 @@ public class Chicken extends Food{
     }
     
     public void interactuar(Snake snake) {
-        PartSnake newPart = PartSnakeFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
+        SnakePart newPart = SnakePartFactory.getInstance().computeNexPart(snake.getBody().peekLast(), snake.getHead());
         snake.toEat(newPart);
     }
 }
